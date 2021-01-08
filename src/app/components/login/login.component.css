@@ -1,0 +1,26 @@
+section{
+	height: auto;
+	width: 50%;
+}
+
+#secundario{
+	width: inherit;
+	height: auto;
+}
+
+div h1
+{	
+	text-align: left;
+	padding-top: 2em;
+	margin-bottom: 2em;
+	font-family: Homer Simpson;
+	font-weight: bold;
+}
+
+#principal
+{
+	width: 74%;
+	height: auto;
+	box-shadow: 2px 4px 12px 3px;
+}
+

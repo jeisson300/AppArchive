@@ -1,0 +1,24 @@
+#linea{
+	width: 81%;
+	margin: auto;
+}
+
+footer{
+
+	width: 100%;
+	height: 9em;
+	border-top: solid;
+	border-width: 1px;
+	border-color: #E1E7EB;
+}
+
+footer div{
+	height: inherit;
+}
+
+footer p{
+
+	margin: auto;
+	text-align: center;
+
+}

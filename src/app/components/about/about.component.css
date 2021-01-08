@@ -1,0 +1,76 @@
+#contenedor{
+	display: block;
+	background: #262E33;
+	border-radius: 5px;
+	height: auto;
+
+}
+
+#contenedor-dos
+{
+	height: 28em;
+}
+@media (max-width: 575px){
+
+	#contenedor {
+		width: 100%;
+	}
+}
+
+@media (max-width: 986px)
+{
+	#contenedor-dos{
+		height: auto;
+	}
+}
+
+
+#principal{
+	padding-right:0;
+	padding-left: 0; 
+}
+
+
+@media(max-width: 575px)
+{
+	#principal
+	{
+		flex: auto;
+		width: 50%;
+	}
+}
+
+
+#contenedor p{
+
+	color: white;
+}
+
+
+#contenedor h1{
+
+	color: white;
+	text-align: left;
+	font-family: Homer Simpson;
+}
+
+
+.caja{
+	border-style: solid;
+	border-width: 1px;
+	border-color: #E1E7EB;
+	border-radius: 2px;
+	}
+
+.font{
+
+	font-family: Homer Simpson;
+}
+
+
+.titulo{
+	font-family: Homer Simpson;
+	font-weight: bold;
+}
+
+

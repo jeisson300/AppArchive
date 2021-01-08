@@ -1,0 +1,24 @@
+<div class="container">
+	<div class="row">
+		
+			<div id="principal" class=" principal col border mx-2  bg-light rounded" *ngFor="let project of projects">
+				<div class="row">
+					<a [routerLink]="['/detail',project.id]">
+						<div class="col pt-3">
+							<strong  class="text-capitalize text-primary">{{project.category}}</strong>
+													<h4 class="font text-uppercase text-dark"><strong>{{project.name}} </strong></h4>
+													<time class="text-secondary">{{project.year}}</time>
+													<div  id="imagen" class="container d-none d-lg-block bg-primary rounded mt-4">
+																	{{project.image}}
+
+													</div>	
+													<br>
+													<p class="text-dark">
+														 {{project.description}}
+													</p>
+						</div>
+					</a>
+				</div>
+			</div>	
+	</div>
+</div>

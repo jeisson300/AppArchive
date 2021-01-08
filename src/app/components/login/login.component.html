@@ -1,0 +1,23 @@
+<section class="container ">
+	
+		<div id="principal" class="container  input-group input-group-lg bg-light mt-5 border mb-5">
+			<h1 class="ms-4">Inicio Sesión</h1>
+			<div id="secundario" class="ms-4">
+				<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm) ">
+					
+
+					<input type="text" name="user" class ="rounded border border-1  my-1 form-control" #user="ngModel" [(ngModel)]="user.user" placeholder="user" required/>
+					<span *ngIf="user.touched &&!user.valid">el usuario es obligatorio</span>
+
+					<input type="password" name="password" class ="rounded border border-1  my-1 form-control" #password="ngModel" [(ngModel)]="user.password" placeholder="password" required/>
+					<span *ngIf="password.touched &&!password.valid">el usuario es obligatorio</span>
+
+					
+					<div class="container mt-5">
+						<input type="submit" class="btn-dark rounded boder boder-1  mb-5" value="Iniciar Sesión" [disabled]="!userForm.form.valid">
+					</div>
+				</form>
+			</div>
+		</div>
+	
+</section>
