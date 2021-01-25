@@ -30,8 +30,8 @@ public class Controlador {
 	
 	
 	
-	@PostMapping("/upload")
-	public Project uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) throws IOException
+	@PostMapping("/upload/{id_user}")
+	public Project uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes, @ModelAttribute User user) throws IOException
 	{
 		if(file == null || file.isEmpty())
 		{
@@ -77,7 +77,7 @@ public class Controlador {
 		project.setYear(Integer.parseInt(year));
 		
 		
-		boolean validar = agregarProject(project);
+		boolean validar = agregarProject(project, user);
 		if(validar ==false)
 		{
 			return project;
@@ -89,9 +89,10 @@ public class Controlador {
 		
 	}
 	
-	public boolean verificar(Project project)
+	public boolean verificar(Project project, User user)
 	{
-		List<Project> projects = listarProject();
+		
+		List<Project> projects = userService.listarUserProjects(user.getId_user());
 		boolean validar = false;
 		for (Project p : projects) {
 			if(p.getRuta().equalsIgnoreCase(project.getRuta()))
@@ -102,9 +103,9 @@ public class Controlador {
 		return validar;
 	}
 	
-	public boolean agregarProject(Project project)
+	public boolean agregarProject(Project project, User user)
 	{
-		boolean validar = verificar(project);
+		boolean validar = verificar(project, user);
 		
 		
 		if(validar == false)
@@ -198,6 +199,7 @@ public class Controlador {
 	public  void agregarUserProject(User user, @RequestBody Project project)
 	{
 		userService.agregarUserProject(user.getId_user(), project);
+		
 	}
 	
 	@GetMapping("/buscarUser/{id_user}")
