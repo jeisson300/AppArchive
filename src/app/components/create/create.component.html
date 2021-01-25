@@ -5,39 +5,19 @@
 			<h1 class="ms-4">{{title}}</h1>
 			<div id="secundario" class="ms-4">
 				
-					<form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)">
+					<form method="post" enctype="multipart/form-data" #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)" >
 
 						<p>
-							<input type="file" name="ruta" class ="rounded border border-1  my-1 form-control" #ruta="ngModel" [(ngModel)]="project.ruta" required/>		
+							<input type="file" name="ruta" class ="rounded border border-1  my-1 form-control"(change)="fileChangeEvent($event)" required/>	
+							
 						</p>
-	
-
-						<p>
-
-							<input type="text" name="name"  class ="rounded border border-1  my-1 form-control" #name="ngModel" [(ngModel)]="project.name" placeholder="Nombre" required/>
-							<span *ngIf="name.touched && !name.valid">
-								el nombre es obigatorio
-							</span>
 					
-							<input type="text" name="category" class ="rounded border border-1  my-1 form-control" #category="ngModel" [(ngModel)]="project.category" placeholder="category" required/>
-							<span *ngIf="category.touched && !category.valid">
-								la categoria  es obigatorio
-							</span>
-						</p>
-						<p>
-							<input type="Number" name="year" class ="rounded border border-1  my-1 form-control" #year="ngModel" [(ngModel)]="project.year" placeholder="year" required/>	
-							<span *ngIf="year.touched && !year.valid">
-								el año es obigatorio
-							</span>		
-						</p>
-
-						
-						
 						<input type="submit" value="Subir" class="btn-dark rounded boder boder-1  mb-5" [disabled]="!projectForm.form.valid"/>
 
 					</form>
-				
 			</div>
 		</div>
 	
 </section>
+
+

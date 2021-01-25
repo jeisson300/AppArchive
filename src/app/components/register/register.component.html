@@ -4,18 +4,19 @@
 			<h1 class="ms-4">Registro</h1>
 			<div id="secundario" class="ms-4">
 				<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm) ">
-					<input type="text" name="user" class ="rounded border border-1  my-1 form-control" #user="ngModel" [(ngModel)]="username.user" placeholder="user" required/>
-					<span *ngIf="user.touched &&!user.valid">el usuario es obligatorio</span>
+					
+					<input type="text" name="username" class ="rounded border border-1  my-1 form-control" #username="ngModel" [(ngModel)]="user.username" placeholder="Usuario" required/>
+					<span *ngIf="username.touched &&!username.valid">el usuario es obligatorio</span>
 
-					<input type="text" class ="rounded border border-1  my-1 form-control" name="name" #name="ngModel" [(ngModel)]="username.name" placeholder="name" required/>
+					<input type="text" class ="rounded border border-1  my-1 form-control" name="name" #name="ngModel" [(ngModel)]="user.name" placeholder="name" required/>
 					<span *ngIf="name.touched && !name.valid">el nombre es obigatorio</span>
 
 					
 
-					<input type="password" name="password" class ="rounded border border-1  my-1 form-control" #password="ngModel" [(ngModel)]="username.password" placeholder="password" required/>
+					<input type="password" name="password" class ="rounded border border-1  my-1 form-control" #password="ngModel" [(ngModel)]="user.password" placeholder="password" required/>
 					<span *ngIf="password.touched &&!password.valid">la contraseña es obligatorio</span>
 
-					<input type="text" name="email" class ="rounded border border-1 my-1 form-control" #email="ngModel" [(ngModel)]="username.email" placeholder="email" required/>
+					<input type="text" name="email" class ="rounded border border-1 my-1 form-control" #email="ngModel" [(ngModel)]="user.email" placeholder="email" required/>
 					<span *ngIf="email.touched &&!email.valid">el email es obligatorio</span>
 
 					

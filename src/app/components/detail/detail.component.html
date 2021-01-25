@@ -1,8 +1,18 @@
 <section class="container">
+	<div class ="row  w-75 mx-auto">
+		<div id="box1" class = "container col-4" >
+			<h1 >{{project.name}}</h1>
+			<div class="container " *ngIf="project.category=='imagen' else archive ">
+				<img class="img-fluid img-thumbnail" src="../../../assets/img/{{project.ruta}}">
+			</div>
+			<ng-template #archive>
+				<img class="img-fluid img-thumbnail" src="../../../assets/img-2/archivo.png">
+			</ng-template>
+		</div>
+		<div class="d-inline col mt-5">
 
-	
-	
-
-
-
+				<button class ="d-inline mx-2 mt-5 btn btn-danger btn-lg" (click)="eliminar(project.id)">Borrar</button>
+				<button class ="d-inline mx-2 mt-5 btn btn-warning btn-lg" (click)="editar(project.ruta, project.id)">Actualizar</button>
+		</div>
+	</div>	
 </section>

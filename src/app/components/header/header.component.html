@@ -1,0 +1,34 @@
+<header >
+	<nav class="navbar navbar-expand-lg navbar-light bg-transparent mt-2">
+	  <div class="container">
+	    <a class="navbar-brand fs-1 ms-3 fw-bold fst-italic"*ngIf="validar =='1'" href="/">JES</a>
+
+	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	      <span class="navbar-toggler-icon"></span>
+	     </button>
+		    <div class="collapse navbar-collapse" id="navbarNav">
+		      <ul class="navbar-nav" *ngIf="validar =='1'">
+			       
+			      
+			     <li class="nav-item fs-5"><a class="nav-link" [routerLink]="['/proyects']">Archivos</a></li>
+				 <li class="nav-item fs-5"><a class="nav-link" [routerLink]="['/create']">Subir Archivo</a></li>
+
+		      </ul>
+		      <ul class="navbar-nav ms-auto" *ngIf="validar==null else box">
+
+
+		      	<li class="nav-item fs-5"><a class="nav-link"  [routerLink]="['/login']">Sign in</a></li>
+		      	<li class="nav-item fs-5"><a class="nav-link" [routerLink]="['/register']">Sign up</a></li>
+		      </ul>
+		      <ng-template #box>
+		      	<ul class="navbar-nav ms-auto">
+
+		      		<li class="nav-item fs-5"><a class="nav-link"  [routerLink]="['/edit-user']"><img class="img-fluid" src="../../../assets/img-2/user.png"></a></li>
+		      		<li class="nav-item fs-5"><a class="nav-link"  [routerLink]="['/login']">Sign out</a></li>
+		      	</ul>
+		      	
+		      </ng-template>
+		    </div>
+	  	</div>
+	</nav>
+</header>

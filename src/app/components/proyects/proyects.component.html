@@ -1,24 +1,38 @@
 <div class="container">
 	<div class="row">
-		
-			<div id="principal" class=" principal col border mx-2  bg-light rounded" *ngFor="let project of projects">
-				<div class="row">
-					<a [routerLink]="['/detail',project.id]">
-						<div class="col pt-3">
-							<strong  class="text-capitalize text-primary">{{project.category}}</strong>
-													<h4 class="font text-uppercase text-dark"><strong>{{project.name}} </strong></h4>
-													<time class="text-secondary">{{project.year}}</time>
-													<div  id="imagen" class="container d-none d-lg-block bg-primary rounded mt-4">
-																	{{project.image}}
-
-													</div>	
-													<br>
-													<p class="text-dark">
-														 {{project.description}}
-													</p>
-						</div>
-					</a>
-				</div>
+		<ng-container *ngIf="projects?.length>0 else box">
+			<div id="principal" class=" principal col border mx-2  bg-light rounded" *ngFor="let project of projects" >
+				
+					<div class="row" >
+						<a [routerLink]="['/detail',project.id]">
+							<div class="col pt-3" >
+								<strong  class="text-capitalize text-primary">{{project.category}}</strong>
+														<h4 class="font text-uppercase text-dark"><strong>{{project.name}} </strong></h4>
+														<time class="text-secondary">{{project.year}}</time>
+														<ng-container *ngIf="project.category=='imagen' else icon ">
+															<div  id="imagen" class="container d-none d-lg-block rounded mt-4" >							
+																<img class="img-fluid" src="../../../assets/img/{{project.ruta}}">			
+															</div>	
+														</ng-container>
+														<ng-template #icon>
+																
+															<div  id="imagen" class="container d-none d-lg-block rounded mt-4" >							
+																<img class="img-fluid pt-2" src="../../../assets/img-2/archivo.png">		
+															</div>
+														</ng-template>
+														<br>
+														<p class="text-dark">
+															 {{project.description}}
+														</p>
+							</div>
+						</a>
+					</div>
+				
 			</div>	
+		</ng-container>
+		<ng-template #box >
+			<p class="display-1 py-5 mt-5">No hay archivos Registrados</p>
+			
+		</ng-template>
 	</div>
 </div>

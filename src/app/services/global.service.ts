@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, EventEmitter} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Project} from '../models/project';
@@ -9,27 +9,49 @@ import {global} from './global';
 	export class ProjectService{ 
 
 		public url:string;
+		public correo :string;
 
 		constructor(
 			private _http: HttpClient
 			)
 		{
 			this.url = global.url;
+			this.correo = "";
 		}
 
-		saveProject(project: Project): Observable<any>
+		
+
+
+		/*----------------------------------------------*/
+
+		ListProject(): Observable<any>
 		{
-			let params = JSON.stringify(project);
-			let headers = new HttpHeaders().set("Content-Type","application/json");
-			return this._http.post(this.url+"about", params, {headers: headers});
+			
+			return this._http.get(this.url+"list");
 		}
 		
-		searchProject(project: Project):Observable<any>
+		saveProject(file: File):Observable<any>
 		{
-			let params = JSON.stringify(project);
-			let headers = new HttpHeaders().set("Content-Type","application/json");
-			return this._http.get(this.url+"detail/+id", {headers: headers});
-		
+			/*var headers = new HttpHeaders().set("multipart/form-data");*/
+			const formData: FormData = new FormData();
+			formData.append('file', file);
+			return this._http.post(this.url+"upload",formData);
+		}
+
+		buscar(id):Observable<any>
+		{
+			return this._http.get(this.url+"buscarProject/"+id);
+		}
+
+		eliminar(id):Observable<any>
+		{
+			return this._http.delete(this.url+"eliminarArchivo/"+id);
+		}
+
+		editar(project: Project):Observable<any>
+		{
+			
+			return this._http.put(this.url+"actualizarProject/"+project.id,project);
 
 		}
 }
