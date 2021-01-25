@@ -1,44 +1,32 @@
 package proyecto.jes.service;
 
-import javax.persistence.EntityManager;
 
-import proyecto.jes.dao.UserDao;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import proyecto.jes.modelo.Project;
 import proyecto.jes.modelo.User;
 
-public class UserService implements UserDao{
+@Service
+public interface UserService {
 	
-	public EntityManager entityManager;
-
-	@Override
-	public void agregarUser(User user) {
-		// TODO Auto-generated method stub
+		public void agregar(User user);
 		
-		entityManager.persist(user);
+		public User actualizar(User user);
 		
-	}
-
-	@Override
-	public void borrarUser(User user) {
-		// TODO Auto-generated method stub
+		public void eliminar(int id);
+		
+		public List<User> listarUser();
+		
+		public User listarUserEmail(String email);
+		
+		public User validarLogin(String username, String password);
+		
+		public List<Project> listarUserProjects(int id);
+		
+		public void agregarUserProject(int id, Project project);
+		
+		public User buscarUser(int id );
 	
-		entityManager.remove(user);
-		
-	}
-
-	@Override
-	public void actualizarUser(User user) {
-		// TODO Auto-generated method stub
-		
-		
-		entityManager.merge(user);
-		
-	}
-
-	@Override
-	public User buscarUser(User user) {
-		// TODO Auto-generated method stub
-		
-		return user;
-	}
-
 }

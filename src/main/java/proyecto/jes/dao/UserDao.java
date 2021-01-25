@@ -1,15 +1,11 @@
 package proyecto.jes.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import proyecto.jes.modelo.User;
 
-public interface UserDao {
+public interface UserDao extends JpaRepository<User, Integer>{
 	
-	public void agregarUser(User user);
 	
-	public void borrarUser(User user);
-	
-	public void actualizarUser (User user);
-	
-	public User buscarUser(User id);
 
 }

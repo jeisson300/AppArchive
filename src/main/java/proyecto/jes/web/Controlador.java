@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -18,7 +18,8 @@ import proyecto.jes.modelo.User;
 import proyecto.jes.service.ProjectService;
 import proyecto.jes.service.UserService;
 
-@Controller
+@CrossOrigin(origins="http://localhost:4200")
+@RestController
 public class Controlador {
 	
 	@Autowired
@@ -28,33 +29,9 @@ public class Controlador {
 	public UserService userService;
 	
 	
-	@PostMapping("/subirProject")
-	public void agregar(Project project)
-	{
-		projectService.agregarProject(project);
-	}
-	
-	
-	@PostMapping("/GuardarUser")
-	public void agregarUser(User user)
-	{
-		userService.agregarUser(user);
-	}
-	
-	@DeleteMapping("/eliminarUser/{id}")
-	public void eliminarUser(User user)
-	{
-		userService.borrarUser(user);	
-	}
-	
-	@PutMapping("/actualizar/{id}")
-	public void actualizarUser(User user)
-	{
-		userService.actualizarUser(user);
-	}
 	
 	@PostMapping("/upload")
-	public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) throws IOException
+	public Project uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) throws IOException
 	{
 		if(file == null || file.isEmpty())
 		{
@@ -62,9 +39,11 @@ public class Controlador {
 		}
 		
 		StringBuilder builder = new StringBuilder();
-		
+	//	builder.append(System.getProperty("user.home"));
+		builder.append("D:\\JOSE-JEISSON\\RESPALDO_INFO\\estudio-programacion\\ANGULAR\\proyecto-angular1\\src\\assets\\img");
+//		builder.append(File.separator);
+//		builder.append("recursos");
 		builder.append(File.separator);
-		builder.append("D:\\JOSE-JEISSON\\RESPALDO_INFO\\estudio-programacion\\Recursos\\UploadJes");
 		builder.append(file.getOriginalFilename());
 		
 		byte[] fileBytes = file.getBytes();
@@ -72,9 +51,160 @@ public class Controlador {
 		Files.write(path, fileBytes);
 		
 		attributes.addFlashAttribute("message", "archivo cargado correctamente");
-		return null;
+		
+		Project project = new Project();
+		String fileName = file.getOriginalFilename();
+		project.setRuta(fileName);
+		String []position = fileName.split("\\.");
+		String fe = "";
+		int i = fileName.lastIndexOf('.');
+		if (i > 0) {
+		    fe = fileName.substring(i+1);
+		}
+		
+		project.setName(position [0]);
+		
+		if(fe.equalsIgnoreCase("png")||fe.equalsIgnoreCase("jpg")||fe.equalsIgnoreCase("jpeg"))
+		{
+			project.setCategory("imagen");
+		}
+		else {
+			project.setCategory("archivo");
+		}
+		Calendar ca = Calendar.getInstance();
+		
+		String year = String.valueOf(ca.get(Calendar.YEAR));
+		project.setYear(Integer.parseInt(year));
+		
+		
+		boolean validar = agregarProject(project);
+		if(validar ==false)
+		{
+			return project;
+		}
+		else
+		{
+			return null;
+		}
+		
 	}
 	
+	public boolean verificar(Project project)
+	{
+		List<Project> projects = listarProject();
+		boolean validar = false;
+		for (Project p : projects) {
+			if(p.getRuta().equalsIgnoreCase(project.getRuta()))
+			{
+				validar = true;
+			}
+		}	
+		return validar;
+	}
+	
+	public boolean agregarProject(Project project)
+	{
+		boolean validar = verificar(project);
+		
+		
+		if(validar == false)
+		{
+			projectService.agregar(project);
+			
+		}
+		
+		return validar;
+	}
+	
+	@DeleteMapping("/eliminarArchivo/{id}")
+	public void borrarProject(Project project)
+	{
+		projectService.eliminar(project.getId());
+		
+	}
+	
+	@PutMapping("/actualizarProject/{id}")
+	public void actualizarProject(@RequestBody Project project)
+	{
+		projectService.actualizar(project);
+	}
+	
+	@GetMapping("/buscarProject/{id}")
+	public Project buscarProject(Project project)
+	{
+		return projectService.buscar(project.getId()); 
+	}
+	
+	@GetMapping("/list")
+	public List<Project> listarProject()
+	{
+		
+		return  projectService.listar();
+		 
+	}
+	
+	
+	
+	//----------- metodos del user----------//
+	
+	//----------- metodo para validar user----//
+	
+
+	
+	
+	@PostMapping("/GuardarUser")
+	public boolean agregarUser(@RequestBody User user)
+	{
+		boolean validar = true;
+		User u = userService.listarUserEmail(user.getEmail());
+		if(u == null)
+		{	
+			validar = false;
+			userService.agregar(user);
+		}
+		
+		return validar;
+		
+	}
+	
+	@DeleteMapping("/eliminarUser/{id_user}")
+	public void eliminarUser(User user)
+	{
+		userService.eliminar(user.getId_user());	
+	}
+	
+	@PutMapping("/actualizar/{id_user}")
+	public void actualizarUser(@RequestBody User user)
+	{
+		userService.actualizar(user);
+	}
+	
+	@PostMapping("/validarL")
+	public User determinarLoguin(@RequestBody User user)
+	{
+		
+		user = userService.validarLogin(user.getUsername(), user.getPassword());
+		return user;
+	}
+	
+	@GetMapping("/listProject/{id_user}")
+	public List<Project> listarProjectUser(User user)
+	{
+		List<Project> projects = userService.listarUserProjects(user.getId_user());
+		return projects;
+	}
+	
+	@PostMapping("/guardarUserProject/{id_user}")
+	public  void agregarUserProject(User user, @RequestBody Project project)
+	{
+		userService.agregarUserProject(user.getId_user(), project);
+	}
+	
+	@GetMapping("/buscarUser/{id_user}")
+	public User buscarUser(User user)
+	{
+		return userService.buscarUser(user.getId_user());
+	}
 	
 	
 
