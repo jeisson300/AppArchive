@@ -2,6 +2,7 @@ import {Injectable, EventEmitter} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Project} from '../models/project';
+import {User} from '../models/user';
 import {global} from './global';
 
 @Injectable()
@@ -30,12 +31,12 @@ import {global} from './global';
 			return this._http.get(this.url+"list");
 		}
 		
-		saveProject(file: File):Observable<any>
+		saveProject(file: File, id: number):Observable<any>
 		{
 			/*var headers = new HttpHeaders().set("multipart/form-data");*/
 			const formData: FormData = new FormData();
 			formData.append('file', file);
-			return this._http.post(this.url+"upload",formData);
+			return this._http.post(this.url+"upload/"+id,formData);
 		}
 
 		buscar(id):Observable<any>

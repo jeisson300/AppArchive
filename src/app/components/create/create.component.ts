@@ -43,7 +43,7 @@ export class CreateComponent implements OnInit {
 	  {
 	  	if(this.file== undefined) alert("Seleccione un archivo");
 	  	else{
-	  	this._projectService.saveProject(this.file).subscribe(
+	  	this._projectService.saveProject(this.file, parseInt(sessionStorage.getItem("ref"))).subscribe(
 		response=>
 		{
 			

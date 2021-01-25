@@ -15,7 +15,7 @@ import {EditUserComponent} from './components/edit-user/edit-user.component';
 
 const appRoutes: Routes = [
 
-{path:'', component:AboutComponent},
+{path:'', component:LoginComponent},
 {path:'about', component:AboutComponent},
 {path:'proyects', component:ProyectsComponent},
 {path:'create', component:CreateComponent},
